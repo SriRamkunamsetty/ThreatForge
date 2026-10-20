@@ -3,6 +3,8 @@
 > **Continuous Threat Modeling & Architecture Drift Intelligence Platform**  
 > *Every threat is explainable. Every mitigation is verifiable. Every security-relevant architecture change triggers the right level of review.*
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev/)
@@ -432,4 +434,10 @@ ALL BENCHMARK CRITERIA MET OR EXCEEDED
 
 ## 📄 License
 
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+This project is dual-licensed under the **MIT License** and the **Apache License 2.0**.
+You may choose to use either license at your option:
+
+- [MIT License](LICENSE-MIT)
+- [Apache License 2.0](LICENSE-APACHE)
+
+See [LICENSE](LICENSE) for full details.
