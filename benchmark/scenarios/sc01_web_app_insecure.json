@@ -1,0 +1,78 @@
+{
+  "scenario_id": "SC-001",
+  "name": "Insecure Web Application and Database",
+  "architecture_type": "web_application",
+  "description": "Public internet client calling an unauthenticated, unencrypted API that accesses an unencrypted database with PII.",
+  "expected_threats": [
+    "STRIDE-S-001",
+    "STRIDE-S-002",
+    "STRIDE-T-001",
+    "STRIDE-ID-001",
+    "STRIDE-DoS-001",
+    "STRIDE-R-001",
+    "STRIDE-EoP-001"
+  ],
+  "expected_non_applicable": [
+    "AI-LLM-001",
+    "AI-LLM-002",
+    "AI-LLM-003"
+  ],
+  "components": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "Internet User",
+      "component_type": "external_entity",
+      "trust_zone": "internet",
+      "properties": {}
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "name": "Backend API",
+      "component_type": "process",
+      "trust_zone": "internal",
+      "properties": {
+        "authentication_required": false,
+        "authorization_enforced": false,
+        "internet_facing": true,
+        "custom": {
+          "rate_limiting_enabled": false,
+          "audit_logging_enabled": false
+        }
+      }
+    },
+    {
+      "id": "33333333-3333-3333-3333-333333333333",
+      "name": "User Accounts Database",
+      "component_type": "data_store",
+      "trust_zone": "internal",
+      "properties": {
+        "stores_pii": true,
+        "encrypted_at_rest": false,
+        "allows_anonymous_access": true
+      }
+    }
+  ],
+  "data_flows": [
+    {
+      "id": "aaaa1111-aaaa-1111-aaaa-111111111111",
+      "source_component_id": "11111111-1111-1111-1111-111111111111",
+      "target_component_id": "22222222-2222-2222-2222-222222222222",
+      "name": "HTTP Request",
+      "crosses_trust_boundary": true,
+      "properties": {
+        "encrypted": false,
+        "data_classification": "PII"
+      }
+    },
+    {
+      "id": "bbbb2222-bbbb-2222-bbbb-222222222222",
+      "source_component_id": "22222222-2222-2222-2222-222222222222",
+      "target_component_id": "33333333-3333-3333-3333-333333333333",
+      "name": "SQL Connection",
+      "crosses_trust_boundary": false,
+      "properties": {
+        "encrypted": false
+      }
+    }
+  ]
+}

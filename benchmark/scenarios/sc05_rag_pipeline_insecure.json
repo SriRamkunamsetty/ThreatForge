@@ -1,0 +1,47 @@
+{
+  "scenario_id": "SC-005",
+  "name": "RAG Pipeline without Output Sanitization or Injection Guardrails",
+  "architecture_type": "rag_pipeline",
+  "description": "Retrieval-augmented generation pipeline ingesting public crawled documents into a vector store without injection guards.",
+  "expected_threats": [
+    "AI-LLM-001",
+    "AI-LLM-002"
+  ],
+  "expected_non_applicable": [
+    "AI-LLM-003"
+  ],
+  "components": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "Vector Store (Crawled Docs)",
+      "component_type": "vector_store",
+      "trust_zone": "internal",
+      "properties": {}
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "name": "Knowledge Search RAG Pipeline",
+      "component_type": "rag_pipeline",
+      "trust_zone": "internal",
+      "properties": {
+        "accepts_untrusted_input": true,
+        "custom": {
+          "prompt_injection_defenses": [],
+          "output_sanitization_enabled": false
+        }
+      }
+    }
+  ],
+  "data_flows": [
+    {
+      "id": "aaaa1111-aaaa-1111-aaaa-111111111111",
+      "source_component_id": "11111111-1111-1111-1111-111111111111",
+      "target_component_id": "22222222-2222-2222-2222-222222222222",
+      "name": "Embedding Retrieval Flow",
+      "crosses_trust_boundary": false,
+      "properties": {
+        "encrypted": true
+      }
+    }
+  ]
+}

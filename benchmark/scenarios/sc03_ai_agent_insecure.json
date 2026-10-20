@@ -1,0 +1,49 @@
+{
+  "scenario_id": "SC-003",
+  "name": "Autonomous AI Agent with Destructive Tools and No HITL",
+  "architecture_type": "ai_agent",
+  "description": "Autonomous agent accepting raw untrusted input, armed with code execution and database deletion tools without human approval gates.",
+  "expected_threats": [
+    "AI-LLM-001",
+    "AI-LLM-003",
+    "STRIDE-EoP-002"
+  ],
+  "expected_non_applicable": [
+    "STRIDE-S-001"
+  ],
+  "components": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "name": "External Chat User",
+      "component_type": "untrusted_input",
+      "trust_zone": "external",
+      "properties": {}
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "name": "DevOps Autonomous Agent",
+      "component_type": "agent",
+      "trust_zone": "internal",
+      "properties": {
+        "accepts_untrusted_input": true,
+        "tool_permissions": ["execute_code", "delete_record", "send_email"],
+        "has_human_in_the_loop": false,
+        "custom": {
+          "prompt_injection_defenses": []
+        }
+      }
+    }
+  ],
+  "data_flows": [
+    {
+      "id": "aaaa1111-aaaa-1111-aaaa-111111111111",
+      "source_component_id": "11111111-1111-1111-1111-111111111111",
+      "target_component_id": "22222222-2222-2222-2222-222222222222",
+      "name": "User Prompt Flow",
+      "crosses_trust_boundary": false,
+      "properties": {
+        "encrypted": true
+      }
+    }
+  ]
+}
